@@ -1,1 +1,1 @@
-# differential_equations
+Some work on differential equations in java

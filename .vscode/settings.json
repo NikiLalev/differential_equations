@@ -1,0 +1,9 @@
+{
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\nikch\\OneDrive\\Desktop\\jcommon-1.0.23.jar",
+        "c:\\Users\\nikch\\OneDrive\\Desktop\\jfreechart-1.0.19.jar"
+    ]
+}
