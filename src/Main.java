@@ -9,15 +9,15 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.DefaultXYDataset;
 
-import FunctionModule.Euler;
+import FunctionModule.SimpleEuler;
 import FunctionModule.SimpleFunction;
 
 public class Main {
     public static void main(String[] args) {
         SimpleFunction sf = new SimpleFunction();
-        Euler euler = new Euler();
-        int startTime = 0, endTime = 1; 
+        int endTime = 1;
         double initialValue = 0;
+        SimpleEuler euler = new SimpleEuler(sf, initialValue);
        
         //y(1)
         double exact = 0.5033467;
@@ -26,8 +26,9 @@ public class Main {
         double[] xData = {0.2, 0.1, 0.05, 0.025, 0.01, 0.005, 0.0025, 0.001}; //timesteps
         double[] yData = new double[xData.length]; //error for specific timestep
         
+        //compute error
         for(int i = 0; i < xData.length; i++) {
-            double eulerApproximation = euler.ode(sf, startTime, endTime, xData[i], initialValue);
+            double eulerApproximation = euler.compute(xData[i], endTime);
             yData[i] = Math.abs(eulerApproximation-exact)/exact;
         }
         // create a dataset for the data

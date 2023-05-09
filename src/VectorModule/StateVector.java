@@ -15,5 +15,21 @@ public class StateVector extends Vector{
 
     //public double[] getCelestialBody
 
+    public int getNumberOfCelestialBodies() {
+        return this.numberOfCelestialBodies;
+    }
+
+    public void setNumberOfCelestialBodies(int numberOfCelestialBodies) {
+        this.numberOfCelestialBodies = numberOfCelestialBodies;
+    }
+
+    public CelestialBody[] getCelestialBodies() {
+        return this.celestialBodies;
+    }
+
+    public void setCelestialBodies(CelestialBody[] celestialBodies) {
+        this.celestialBodies = celestialBodies;
+    }
+
     
 }

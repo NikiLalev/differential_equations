@@ -1,7 +1,7 @@
 package VectorModule;
 public class CelestialBody extends Vector{
-    private Vector position;
-    private Vector velocity;
+    private Vector3D position;
+    private Vector3D velocity;
     private double mass;
     private String name;
 
@@ -14,19 +14,19 @@ public class CelestialBody extends Vector{
         this.name = name;
     }
 
-    public Vector getPosition() {
+    public Vector3D getPosition() {
         return this.position;
     }
 
-    public void setPosition(Vector position) {
+    public void setPosition(Vector3D position) {
         this.position = position;
     }
 
-    public Vector getVelocity() {
+    public Vector3D getVelocity() {
         return this.velocity;
     }
 
-    public void setVelocity(Vector velocity) {
+    public void setVelocity(Vector3D velocity) {
         this.velocity = velocity;
     }
 

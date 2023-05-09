@@ -1,6 +1,6 @@
 package FunctionModule;
 
-public interface Function<T> {
-    public T compute(T t, T y);
+public interface Function<T, S, U> {
+    public T compute(S t, U y);
     
 }

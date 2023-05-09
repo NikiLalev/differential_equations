@@ -1,6 +1,6 @@
 package FunctionModule;
 
-public class SimpleFunction implements Function<Double> {
+public class SimpleFunction implements Function<Double, Double, Double> {
 
     @Override
     public Double compute(Double t, Double y) {
