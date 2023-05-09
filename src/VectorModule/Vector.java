@@ -45,6 +45,19 @@ public class Vector {
         return new Vector(result);
     }
 
+    public static double vectorNorm(Vector vector) {
+        double sumSquares = 0;
+        for(double value : vector.getValues()) {
+            sumSquares += Math.pow(value, 2);
+        }
+        return Math.sqrt(sumSquares);
+    }
+
+    public static double distance(Vector v1, Vector v2) {
+        Vector diffVector = v1.add(v2.multiply(-1));
+        return vectorNorm(diffVector);
+    }
+
     public static void validateDimensions(Vector v1, Vector v2) {
         if(v1.getDimension() != v2.getDimension()) throw new IllegalArgumentException("Can't perfrom operations on vectors of different dimensions");
     }

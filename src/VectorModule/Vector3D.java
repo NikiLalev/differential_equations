@@ -1,7 +1,7 @@
 package VectorModule;
 
 public class Vector3D extends Vector{
-
+    //abundant class
     public Vector3D(double x, double y, double z) {
         super(new double[] {x, y, z});
       

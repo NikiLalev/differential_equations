@@ -9,8 +9,12 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.DefaultXYDataset;
 
+import FunctionModule.EulerSolverSolarSystem;
 import FunctionModule.SimpleEuler;
 import FunctionModule.SimpleFunction;
+import VectorModule.CelestialBody;
+import VectorModule.StateVector;
+import VectorModule.Vector;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,7 +22,6 @@ public class Main {
         int endTime = 1;
         double initialValue = 0;
         SimpleEuler euler = new SimpleEuler(sf, initialValue);
-       
         //y(1)
         double exact = 0.5033467;
         
@@ -31,35 +34,28 @@ public class Main {
             double eulerApproximation = euler.compute(xData[i], endTime);
             yData[i] = Math.abs(eulerApproximation-exact)/exact;
         }
-        // create a dataset for the data
-        DefaultXYDataset dataset = new DefaultXYDataset();
-        dataset.addSeries("euler", new double[][] {xData, yData});
-        //dataset.addSeries("test", new double[][] {zData, wData}); for comparing functions
+
+        //Plot.loglogPlot(xData, yData, "euler");
+
+        //-------------------------------------Multivariable solar system test
+        StateVector initialState = InputReader.read("src\\initial.txt");
         
-        // create a chart with logarithmic axes
-        JFreeChart chart = ChartFactory.createXYLineChart(
-                "Log-Log Plot", "X Axis", "Y Axis", dataset);
-        XYPlot plot = chart.getXYPlot();
-        LogarithmicAxis xAxis = new LogarithmicAxis("Timesteps");
-        LogarithmicAxis yAxis = new LogarithmicAxis("Relative error");
-        plot.setDomainAxis(xAxis);
-        plot.setRangeAxis(yAxis);
-        
-        // set the colors of the lines and shapes
-        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-        renderer.setSeriesPaint(0, Color.BLUE);
-        renderer.setSeriesShapesVisible(0, true);
-        plot.setRenderer(renderer);
-        
-        // create a panel to display the chart
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new Dimension(500, 500));
-        
-        // create a frame to display the panel
-        JFrame frame = new JFrame("Log-Log Plot Euler");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(chartPanel);
-        frame.pack();
-        frame.setVisible(true);
+
+        Vector exactPositionEarth1Day = new Vector(new double[]{-1.477286832625031E+08, -3.035837009095788E+07, 3.390427978567779E+04});
+        double exactPositionEarthX1Day = -1.477286832625031E+08;
+        //compute error
+        xData = new double[]{3600, 1800, 900, 450, 225};
+        yData = new double[xData.length]; //error for specific timestep
+        endTime = 86400; //compute for 1 day
+        for(int i = 0; i < xData.length; i++) {
+            EulerSolverSolarSystem eulerSolverSolarSystem = new EulerSolverSolarSystem(initialState);
+            StateVector resultState = eulerSolverSolarSystem.compute(xData[i], endTime);
+
+            CelestialBody eulerApproximationEarth = resultState.getCelestialBodyName("earth");
+            yData[i] = Vector.distance(eulerApproximationEarth.getPosition(), exactPositionEarth1Day);
+            //yData[i] = Math.abs(eulerApproximationEarth.getPosition().getValueIndex(0)-exactPositionEarthX1Day)/exactPositionEarthX1Day;
+        }
+
+        Plot.loglogPlot(xData, yData, "euler solar");
     }
 }

@@ -3,18 +3,21 @@ package FunctionModule;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ODE<S, U, V, T> {
+public abstract class ODE<S extends Function, T> {
     protected final static double EPSILON = Double.MIN_VALUE;
-    protected Function<S, U, V> function;
+    protected S function;
     protected T initialState;
-    protected double[] calculatedValues;
+    protected T[] calculatedValues;
 
-    public ODE(Function<S, U, V> function, T initialState) {
+    public ODE(S function, T initialState) {
         this.function = function;
         this.initialState = initialState;
     }
 
     public abstract T compute(double timeStep, int endTime);
+
+    //to do: add compute 1 step
+
 
     public static List<Double> computeListTimeSteps(double timeStep, int endTime) {
         List<Double> range = new ArrayList<Double>();
@@ -26,7 +29,7 @@ public abstract class ODE<S, U, V, T> {
     }
 
 
-    public Function<S,U,V> getFunction() {
+    public S getFunction() {
         return this.function;
     }
 
@@ -34,7 +37,7 @@ public abstract class ODE<S, U, V, T> {
         return this.initialState;
     }
 
-    public double[] getCalculatedValues() {
+    public T[] getCalculatedValues() {
         return calculatedValues;
     }
 }
