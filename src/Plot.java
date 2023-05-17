@@ -11,9 +11,8 @@ import org.jfree.data.xy.DefaultXYDataset;
 
 public class Plot {
     
-    public static void loglogPlot(double[] xData, double[] yData, String name) {
-        // create a dataset for the data
-        DefaultXYDataset dataset = new DefaultXYDataset();
+    public static void loglogPlot(double[] xData, double[] yData, String name, DefaultXYDataset dataset) {
+        
         dataset.addSeries(name, new double[][] {xData, yData});
         //dataset.addSeries("test", new double[][] {zData, wData}); for comparing functions
         
